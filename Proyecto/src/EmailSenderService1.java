@@ -25,7 +25,7 @@ public class EmailSenderService1 {
 		session = Session.getDefaultInstance(properties);
 	}
  
-	public void sendEmail(String sugerencias, String advertencias){
+	public void sendEmail(String entrada){
  
 		init();
 		try{
@@ -33,7 +33,8 @@ public class EmailSenderService1 {
 			message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress("carlosmartz1995@gmail.com"));
 			message.setSubject("HUERTO HIDROPONICO @@ SISTEMA DE CONTROL DE LA PLANTA");
-			message.setText("Sugerencias:"+ sugerencias , "ADVERTENCIAS:"+ advertencias);
+			message.setText(entrada);
+                      
 			Transport t = session.getTransport("smtp");
 			t.connect((String)properties.get("mail.smtp.user"), "cmar1995");
 			t.sendMessage(message, message.getAllRecipients());
@@ -41,6 +42,7 @@ public class EmailSenderService1 {
 		}catch (MessagingException me){
                         me.printStackTrace();
 		}
+		
 		
 	}
     }

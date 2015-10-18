@@ -225,6 +225,11 @@ String sugerencias, advertencias;
         });
 
         jButton5.setText("GENERAR");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -413,15 +418,68 @@ String sugerencias, advertencias;
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        jTextArea1.setText("hola carlos");
-        jTextArea2.setText("soy felix");
         sugerencias= jTextArea1.getText();
         advertencias= jTextArea2.getText();
         
         EmailSenderService1 mail =new EmailSenderService1();
-        mail.sendEmail(sugerencias,advertencias);
+        mail.sendEmail(sugerencias);
+        mail.sendEmail(advertencias);
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+         String h=jTextField1.getText();
+        String t=jTextField3.getText();
+        String l=jTextField4.getText();
+        int h1=Integer.parseInt(h);
+        int t1=Integer.parseInt(t);
+        int l1=Integer.parseInt(l);
+        t="ADVERTENCIAS:\n";
+        h="SUGERENCIAS:\n";
+        if(h1<40){
+            h=h+"La planta tiene muy poca humedad por lo que se sugiere agregarle agua.\n";
+            t="La humedad es muy baja!\n";
+        }else{
+            if(h1>=40&&h1<80){
+                h=h+"La planta tiene una humedad aceptable por lo que no requiere cambios.\n";
+            }else{
+                if(h1>=80){
+                    h=h+"La planta tiene exceso de humedad, verifique si está en las condiciones apropiadas para su crecimiento.\n";
+                    t=t+"La humedad es muy grande!\n";
+                }
+            }
+        }
+        if(t1<10){
+            t=t+"La temperatura esta demasiado baja!\n";
+            h=h+"La temperatura es muy baja para la planta por lo que se sugiere cambiarla de lugar o aplicarle un poco de luz con un foco.\n";
+        }else{
+            if(t1>=10&&t1<25){
+                h=h+"La temperatura es la adecuada, no se sugiere nada.\n";
+            }else{
+                if(t1>=25){
+                    t=t+"La temperatura es muy alta! Existe riesgo para la planta\n";
+                    h=h+"La temperatura es muy alta, se requiere hacer algo con ella. \n";
+                }
+            }
+        }
+        if(l1<100){
+            h=h+"Verifique si la planta ya fue expuesta al sol ya que la luminosidad es muy baja. ";
+        }else{
+            if(l1>=100&&l1<250){
+                h=h+"La planta esta en condiciones normales de luz por lo que no se sugiere hacer nada. ";
+            }else{
+                if(l1>=250){
+                    t=t+"Si la planta ha estado sobreexpuesta al sol puede sufrir daño.";
+                    h=h+"La planta esta muy expuesta a la luz se sugiere ver el tiempo de exposición. ";
+                }
+            }
+        }
+        System.out.println(h);
+        jTextArea1.setText(h);
+        jTextArea2.setText(t);
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
